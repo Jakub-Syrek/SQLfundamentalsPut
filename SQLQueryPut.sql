@@ -192,6 +192,8 @@
 --WHERE nazwisko collate polish_CI_as LIKE '_o%'
 --Odpowiedz na pytanie, w którym przypadku, a) czy b), użycie klauzuli COLLATE było
 --konieczne i dlaczego.
+
+
 --5
 --11.09
 --Napisz zapytanie:
@@ -245,9 +247,50 @@
 --a) Zapytanie zwracające wszystkie nazwiska z tabeli students i employees (każde ma się
 --pojawić tylko raz) posortowane według nazwisk
 --40 rekordów
+--SELECT surname
+--FROM students
+--UNION
+--SELECT surname
+--FROM employees
+--ORDER BY surname
+
+--b) Zapytanie zwracające wszystkie nazwiska z tabeli students i employees (każde ma się
+--pojawić tyle razy ile razy występuje w tabelach) posortowane według nazwisk
+--77 rekordów
+--SELECT surname
+--FROM students
+--UNION ALL
+--SELECT surname
+--FROM employees
+--ORDER BY surname
+--c) Zapytanie zwracające te nazwiska z tabeli students, które nie występują w tabeli
+--employees
+--21 rekordów
+/*
 SELECT surname
 FROM students
-UNION
+EXCEPT
 SELECT surname
 FROM employees
 ORDER BY surname
+*/
+--d) Zapytanie zwracające te nazwiska z tabeli students, które występują także w tabeli
+--employees
+--1 rekord – nazwisko Craven
+/*
+SELECT surname
+FROM students
+INTERSECT
+SELECT surname
+FROM employees
+ORDER BY surname
+*/
+--e) Zapytanie zwracające informację, pracownicy których katedr (departments) nie prowadzą
+--żadnego wykładu
+--1 rekord – Department of Foreign Affairs
+/*SELECT department
+FROM lecturers
+EXCEPT
+SELECT department
+FROM modules
+*/
